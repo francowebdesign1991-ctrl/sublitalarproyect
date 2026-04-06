@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sublimados Talar</title>
+
+<style>
+
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+    height: 60px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    height: 40px;
+}
+
+.menu-btn {
+    font-size: 26px;
+    color: white;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: -220px;
+    width: 220px;
+    height: calc(100% - 60px);
+    background: #111;
+    transition: 0.3s;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 18px 20px;
+    color: white;
+    text-decoration: none;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: #1BAEC4;
+    padding-left: 25px;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* MAIN */
+.main {
+    margin-top: 60px; /* debajo del header */
+    padding: 20px;
+}
+
+/* PRODUCTOS */
+.products {
+    position: relative;
+    height: 650px; /* Desktop grande */
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+/* CARD */
+.card {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    left: 50%;
+    top: 0;
+    transform: translateX(150%) translateY(0);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.card.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* INNER CARD */
+.card-inner {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card-inner img {
+    width: 100%;
+    height: 400px; /* Desktop grande */
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px; /* Desktop */
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.card-price {
+    margin: 15px 0;
+    color: #1BAEC4;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.buy-btn {
+    display: block;
+    text-align: center;
+    background: #000;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.buy-btn:hover {
+    background: #1BAEC4;
+}
+
+/* WHATSAPP */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 55px;
+    height: 55px;
+}
+
+.whatsapp-btn img {
+    width: 100%;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.15);
+    transition: 0.3s;
+}
+
+/* RESPONSIVE CELULAR */
+@media(max-width:768px){
+    .products {
+        height: 350px; /* Ajuste compacto */
+    }
+
+    .card-inner {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .card-inner img {
+        height: 220px; /* Imagen más pequeña en móvil */
+    }
+
+    .card-body {
+        padding: 10px; /* Menor padding */
+    }
+
+    .card-title {
+        font-size: 15px; /* Título más pequeño */
+    }
+
+    .card-price {
+        font-size: 13px; /* Precio más pequeño */
+    }
+
+    .buy-btn {
+        font-size: 13px;
+        padding: 8px; /* Botón compacto */
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <img src="icono1.jpeg" class="logo" alt="Logo">
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="#">Inicio</a>
+    <a href="#">Nuestros productos</a>
+    <a href="#">Contacto</a>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- CONTENIDO -->
+<div class="main">
+
+    <!-- CARRUSEL DE PRODUCTOS -->
+    <div class="products">
+
+        <div class="card active">
+            <div class="card-inner">
+                <img src="billie1.jpeg" alt="Producto 1">
+                <div class="card-body">
+                    <div class="card-title">Remera Oversize Billie Eilish</div>
+                    <div class="card-price">$25 USD</div>
+                    <a href="#" class="buy-btn">Comprar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <img src="bjor2.jpeg" alt="Producto 2">
+                <div class="card-body">
+                    <div class="card-title">Tazas Personalizadas</div>
+                    <div class="card-price">$40 USD</div>
+                    <a href="#" class="buy-btn">Comprar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <img src="gorra3.jpeg" alt="Producto 3">
+                <div class="card-body">
+                    <div class="card-title">Gorras Diseño Personalizados</div>
+                    <div class="card-price">$35 USD</div>
+                    <a href="#" class="buy-btn">Comprar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/549XXXXXXXXXX" class="whatsapp-btn">
+    <img src="whatsapp.png" alt="WhatsApp">
+</a>
+
+<script>
+/* MENU */
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+}
+
+/* CARRUSEL */
+const cards = document.querySelectorAll(".card");
+let index = 0;
+setInterval(() => {
+    cards.forEach(card => card.classList.remove("active"));
+    index = (index + 1) % cards.length;
+    cards[index].classList.add("active");
+}, 3000);
+</script>
+
+</body>
+</html>
