@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sublimados Talar</title>
+
+<style>
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+    height: 90px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    gap: 15px;
+}
+
+.title {
+    font-family: Tahoma, sans-serif;
+    font-size: 40px;
+    color: white;
+    animation: neonBlink 2s infinite alternate;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.logo {
+    height: 60px;
+    object-fit: contain;
+}
+
+/* HAMBURGUESA */
+.menu-btn {
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+}
+
+/* ANIMACIÓN */
+@keyframes neonBlink {
+    0% { text-shadow: 0 0 5px #1BAEC4; color: #fff; }
+    50% { text-shadow: 0 0 25px #1BAEC4; color: #1BAEC4; }
+    100% { text-shadow: 0 0 5px #1BAEC4; color: #fff; }
+}
+
+/* SIDEBAR (MENÚ LATERAL) */
+.sidebar {
+    position: fixed;
+    top: 90px;
+    left: -220px;
+    width: 220px;
+    height: calc(100% - 90px);
+    background: #111;
+    transition: 0.3s;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.active { left: 0; }
+
+.sidebar a {
+    padding: 18px 20px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: 0.3s;
+}
+
+.sidebar a:hover { background: #1BAEC4; }
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 90px);
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+
+.overlay.active { display: block; }
+
+/* MAIN */
+.main {
+    margin-top: 90px;
+    padding: 20px;
+}
+
+/* CARRUSEL */
+.products {
+    position: relative;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(150%);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.card.active {
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+.card-inner {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-inner img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.card-price {
+    color: #1BAEC4;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.buy-btn {
+    display: block;
+    text-align: center;
+    background: #000;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.buy-btn:hover {
+    background: #1BAEC4;
+}
+
+/* FOOTER */
+.footer {
+    background: #000;
+    color: white;
+    padding: 40px 30px 20px;
+}
+
+.footer-content {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer h2 {
+    color: #1BAEC4;
+}
+
+.footer h3 {
+    font-size: 14px;
+    border-left: 3px solid #1BAEC4;
+    padding-left: 8px;
+    margin-bottom: 8px;
+}
+
+/* ICONOS DE PAGO CON FONDO BLANCO */
+.icons img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* ENVÍOS */
+.shipping-icons img {
+    width: 55px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* REDES SIN FONDO BLANCO */
+.social-icons img {
+    width: 40px;
+    height: 40px;
+    transition: 0.3s;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2);
+}
+
+/* MINI BRANDING */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin-top: 30px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* WHATSAPP FLOTANTE */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    z-index: 1001;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.whatsapp-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.2);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .products { height: 400px; }
+    .card { max-width: 280px; }
+    .card-inner img { height: 200px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <div class="title">SUBLITALAR</div>
+    <img src="icono1.jpeg" class="logo">
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="#">Inicio</a>
+    <a href="#">Nuestros productos</a>
+    <a href="#">Contacto</a>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MAIN -->
+<div class="main">
+    <div class="products">
+        <div class="card active">
+            <div class="card-inner">
+                <img src="billie1.jpeg">
+                <div class="card-body">
+                    <div class="card-title">Remera Oversize Billie Eilish</div>
+                    <div class="card-price">$25 USD</div>
+                    <a href="#" class="buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <img src="bjor2.jpeg">
+                <div class="card-body">
+                    <div class="card-title">Tazas Personalizadas</div>
+                    <div class="card-price">$40 USD</div>
+                    <a href="#" class="buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <img src="gorra3.jpeg">
+                <div class="card-body">
+                    <div class="card-title">Gorras Personalizadas</div>
+                    <div class="card-price">$35 USD</div>
+                    <a href="#" class="buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-col">
+            <h2>Métodos de pago</h2>
+            <h3>Billeteras</h3>
+            <div class="icons">
+                <img src="mercadopago.png">
+                <img src="uala.png">
+            </div>
+            <h3>Efectivo</h3>
+            <div class="icons">
+                <img src="rapipago.png">
+                <img src="pagofacil.png">
+            </div>
+            <h3>Tarjetas</h3>
+            <div class="icons">
+                <img src="visa.png">
+                <img src="mastercard.png">
+                <img src="americanexpress.png">
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h2>Envíos</h2>
+            <div class="icons shipping-icons">
+                <img src="correoargentino.png">
+                <img src="andreani.png">
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h2>Ubicación</h2>
+            <p>Tigre, Buenos Aires</p>
+            <p>Argentina</p>
+
+            <h2>Seguinos</h2>
+            <div class="social-icons">
+                <a href="#"><img src="instagram.png"></a>
+                <a href="#"><img src="facebook.png"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © SUBLITALAR 2026
+    </div>
+</div>
+
+<!-- WHATSAPP -->
+<a href="#" class="whatsapp-btn">
+    <img src="whatsapp.png">
+</a>
+
+<script>
+function toggleMenu(){
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+
+const cards = document.querySelectorAll(".card");
+let index = 0;
+setInterval(() => {
+    cards.forEach(card => card.classList.remove("active"));
+    index = (index + 1) % cards.length;
+    cards[index].classList.add("active");
+}, 3000);
+</script>
+
+</body>
+</html>
