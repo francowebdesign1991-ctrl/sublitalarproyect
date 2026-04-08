@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sublimados Talar</title>
+
+<style>
+
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+    height: 90px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu-btn {
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+}
+
+.title {
+    font-family: Tahoma, sans-serif;
+    font-size: 40px;
+    color: white;
+    animation: neonBlink 2s infinite alternate;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.logo {
+    height: 60px;
+}
+
+/* NEON */
+@keyframes neonBlink {
+    0% { text-shadow: 0 0 5px #1BAEC4; color: #fff; }
+    50% { text-shadow: 0 0 25px #1BAEC4; color: #1BAEC4; }
+    100% { text-shadow: 0 0 5px #1BAEC4; color: #fff; }
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: rgba(20,20,20,0.95);
+    backdrop-filter: blur(10px);
+    transition: 0.4s;
+    z-index: 1001;
+    padding-top: 100px;
+}
+
+.sidebar.active { left: 0; }
+
+.sidebar a {
+    display: block;
+    padding: 18px 25px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar a:hover {
+    background: #1BAEC4;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+    z-index: 1000;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* MAIN */
+.main {
+    margin-top: 90px;
+    padding: 20px;
+}
+
+/* CARRUSEL */
+.products {
+    position: relative;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(150%);
+    opacity: 0;
+    transition: 0.8s;
+}
+
+.card.active {
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+.card-inner {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-inner img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.card-body { padding: 20px; }
+
+.card-title { font-weight: bold; }
+
+.card-price {
+    color: #1BAEC4;
+    font-weight: bold;
+}
+
+/* FOOTER COMPLETO */
+.footer {
+    background: #000;
+    color: white;
+    padding: 30px 30px 20px;
+    font-family: "Courier New";
+}
+
+.footer-content {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer h2 {
+    color: #1BAEC4;
+    margin-bottom: 10px;
+}
+
+.footer h3 {
+    font-size: 13px;
+    border-left: 3px solid #1BAEC4;
+    padding-left: 8px;
+}
+
+/* ICONOS */
+.icons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.icons img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background: white;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+/* ENVÍOS */
+.shipping-icons img {
+    width: 55px;
+    background: none;
+    padding: 0;
+}
+
+/* REDES SIN FONDO */
+.social-icons img {
+    width: 38px;
+    background: none;
+}
+
+/* FOOTER FINAL */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin-top: 20px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+/* WHATSAPP */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+}
+
+.whatsapp-btn img { width: 100%; }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .title { font-size: 28px; }
+    .products { height: 400px; }
+    .card { max-width: 280px; }
+    .card-inner img { height: 200px; }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .icons, .social-icons {
+        justify-content: center;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <div class="title">SUBLITALAR</div>
+    <img src="icono1.jpeg" class="logo">
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Contacto</a>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="products">
+
+<div class="card active">
+<div class="card-inner">
+<img src="billie1.jpeg">
+<div class="card-body">
+<div class="card-title">Remera Oversize</div>
+<div class="card-price">$25 USD</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-inner">
+<img src="bjor2.jpeg">
+<div class="card-body">
+<div class="card-title">Tazas</div>
+<div class="card-price">$40 USD</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER RESTAURADO -->
+<div class="footer">
+<div class="footer-content">
+
+<div class="footer-col">
+<h2>Métodos de pago</h2>
+
+<h3>Billeteras</h3>
+<div class="icons">
+<img src="mercadopago.png">
+<img src="uala.png">
+</div>
+
+<h3>Efectivo</h3>
+<div class="icons">
+<img src="rapipago.png">
+<img src="pagofacil.png">
+</div>
+
+<h3>Tarjetas</h3>
+<div class="icons">
+<img src="visa.png">
+<img src="mastercard.png">
+<img src="americanexpress.png">
+</div>
+</div>
+
+<div class="footer-col">
+<h2>Envíos</h2>
+<div class="icons shipping-icons">
+<img src="correoargentino.png">
+<img src="andreani.png">
+</div>
+</div>
+
+<div class="footer-col">
+<h2>Ubicación</h2>
+<p>Tigre, Buenos Aires</p>
+<p>Argentina</p>
+
+<h2>Seguinos</h2>
+<div class="social-icons">
+<a href="#"><img src="instagram.png"></a>
+<a href="#"><img src="facebook.png"></a>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© SUBLITALAR 2026
+</div>
+</div>
+
+<!-- WHATSAPP -->
+<a href="#" class="whatsapp-btn">
+<img src="whatsapp.png">
+</a>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+}
+
+const cards = document.querySelectorAll(".card");
+let index = 0;
+
+setInterval(() => {
+    cards.forEach(card => card.classList.remove("active"));
+    index = (index + 1) % cards.length;
+    cards[index].classList.add("active");
+}, 3000);
+</script>
+
+</body>
+</html>
